@@ -12,6 +12,7 @@ Ellen Berntell <br/>
 Institutionen för naturgeografi och kvartärgeologi <br/>
 Stockholms universitet <br/>
 
+The code was partially developed by Anders Moberg, June 2013<br/>
 
 It has since been translated to English and the code translated to python from matlab by:
 
