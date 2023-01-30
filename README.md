@@ -7,10 +7,11 @@ You will then find the exercises in the notebook [Exercises_EBM_model.ipynb](Exe
 
 Good luck! 
 
-This exercise set was originally developed by:
-- Ellen Berntell
-- Institutionen för naturgeografi och kvartärgeologi
-- Stockholms universitet
+This exercise set was originally developed by: <br/>
+Ellen Berntell <br/>
+Institutionen för naturgeografi och kvartärgeologi <br/>
+Stockholms universitet <br/>
+
 
 It has since been translated to English and the code translated to python from matlab by:
 
