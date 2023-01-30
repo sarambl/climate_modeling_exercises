@@ -6,7 +6,7 @@ def setupfastM(delx, jmx, D, B, Cl, delt):
     Setup inverse for solving
     :param delx: delta latitude
     :param jmx: number of points along latitude
-    :param D: Diffusion?
+    :param D: Diffusion
     :param B: ORL coef.
     :param Cl:heat capacity over land.
     :param delt: time step in fraction of year

@@ -18,7 +18,7 @@ from ebm_models.setupfastM import setupfastM
 # Choose parameters.
 # scaleQ = dQ/Q0
 # A
-def run_1d_ebm(D=0.44,
+def run_1d_ebm(D = 0.44,
                scaleQ=1,
                A=203.3,
                B=2.09,
@@ -96,11 +96,11 @@ def run_1d_ebm(D=0.44,
 
         xmp = np.arange(-1, 1 + delx, delx)
         len(xmp)
-        D = D * (1 + 9 * np.exp(-(xmp / np.sin(25 * np.pi / 180)) ** 6))
-        [invM, Mh] = setupfastM(delx, jmx, D, B, Cl, delt)
+        Diff = D * (1 + 9 * np.exp(-(xmp / np.sin(25 * np.pi / 180)) ** 6))
+        [invM, Mh] = setupfastM(delx, jmx, Diff, B, Cl, delt)
     else:
-        D = D * np.ones([jmx + 1])
-        [invM, Mh] = setupfastM(delx, jmx, D, B, Cl, delt)
+        Diff = D * np.ones([jmx + 1])
+        [invM, Mh] = setupfastM(delx, jmx, Diff, B, Cl, delt)
     print('')
 
     # Boundary conditions
@@ -111,8 +111,9 @@ def run_1d_ebm(D=0.44,
     src = (1 - alb) * S / Cl - A / Cl
     h = np.matmul(Mh, T) + src
     # Global mean temperature
-    # Note that the temperature is area weighted here.
-    Tglob = np.mean(T*np.cos(x/180))/np.mean(np.cos(x/180))
+    # Note that the grid is set up so that the grid cells cover equal area
+    Tglob = np.mean(T)
+    #, weights=np.cos(x/180*np.pi)) # /np.mean(np.cos(x/180))
 
     # Timestepping loop
     for n in range(0, NMAX):
@@ -133,7 +134,6 @@ def run_1d_ebm(D=0.44,
         # Check to see if global mean temperature has converged
         Tglob = np.mean(T)
         Tchange = Tglob - Tglob_prev
-        # print(T)
         if abs(Tchange) < 1.0e-12:
             break
 
@@ -141,8 +141,8 @@ def run_1d_ebm(D=0.44,
 
     # compute meridional heat flux and its convergence
     a = 6.37e+6  # earth radius in meters
-    [invM, Mh] = setupfastM(delx, jmx, D, 0., 1.0, delt)
-    Dmp = 0.5 * (D[1:jmx + 1] + D[0:jmx])
+    [invM, Mh] = setupfastM(delx, jmx, Diff, 0., 1.0, delt)
+    Dmp = 0.5 * (Diff[1:jmx + 1] + Diff[0:jmx])
     divF = np.matmul(Mh, T)
 
     F = -2 * np.pi * a ** 2 * np.sqrt(1 - x ** 2) * Dmp * np.gradient(T, delx, edge_order=2)
@@ -163,7 +163,7 @@ def run_1d_ebm(D=0.44,
 def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleQ):
     fig, axs = plt.subplots(3, 1, figsize=[8, 8], sharex='col')
     ax = axs[0]
-    ax.plot(phi, T, '-', linewidth=1.5)
+    ax.plot(phi, T, '-',marker='.', linewidth=1.5)
     # plot(phi,T,'.-','linewidth',1.5)
     ax.set_ylabel(r'Temperature [$^\circ$C]')
     # set(gca,'position',[0.1300    0.71    0.7750    0.21]);
