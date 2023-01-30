@@ -14,7 +14,6 @@ def setupfastM(delx, jmx, D, B, Cl, delt):
     """
     # set up lambda array.
 
-    # lam=(1-[-1:delx:1]'.^2)/delx^2;
     lam = (1 - np.arange(-1, 1 + delx, delx) ** 2) / delx ** 2
     lam[-1] = 0
     lam = D[:] * lam[:]
