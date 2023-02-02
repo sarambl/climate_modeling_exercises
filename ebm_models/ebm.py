@@ -13,13 +13,9 @@ from ebm_models.setupfastM import setupfastM
 
 
 # %%
-# size of domain.
 
-# Choose parameters.
-# scaleQ = dQ/Q0
-# A
 def run_1d_ebm(D = 0.44,
-               scaleQ=1,
+               scaleS=1,
                A=203.3,
                B=2.09,
                coldstartflag=False,
@@ -30,7 +26,7 @@ def run_1d_ebm(D = 0.44,
     """
 
     :param D: heat diffusion coefficient
-    :param scaleQ: dQ/Q0
+    :param scaleS: dS/S0
     :param A:  OLR constant
     :param B:  OLR coef.
     :param coldstartflag: If start cold
@@ -39,20 +35,9 @@ def run_1d_ebm(D = 0.44,
     :param jmx: number of points along latitude
     :return:
     """
-    """
-    jmx = 151
-    Dmag = 0.44;
-    scaleQ = 1;
-    A = 203.3;
-    B = 2.09;
-    coldstartflag = False
-
-    hadleyflag = False
-    albedoflag = False
-    """
     print(f'Running 1-D model with settings: \n'
           f'A={A}, B={B}, Dmag={D} \n'
-          f'scaleQ={scaleQ}\n')
+          f'scaleS={scaleS}\n')
     # heat diffusion coefficient.
     Toffset = 0.
     # if (exist('coldstartflag')==1);
@@ -78,8 +63,8 @@ def run_1d_ebm(D = 0.44,
     # [insol] = sun(x);
     # Legendre polynomial realizatin of mean annual insol.
     Q = 338.5
-    S = Q * (1 - 0.241 * (3 * x ** 2 - 1))
-    S = scaleQ * S
+    S_l = Q * (1 - 0.241 * (3 * x ** 2 - 1))
+    S_l = scaleS * S_l
     # S=S[:]
 
     # set up inital T profile
@@ -106,14 +91,11 @@ def run_1d_ebm(D = 0.44,
     # Boundary conditions
     # Set up initial value for h.
     alb = albedo(T, jmx, x, noalbedoflag)
-    len(alb)
-    len(S)
-    src = (1 - alb) * S / Cl - A / Cl
+    src = (1 - alb) * S_l / Cl - A / Cl
     h = np.matmul(Mh, T) + src
     # Global mean temperature
     # Note that the grid is set up so that the grid cells cover equal area
     Tglob = np.mean(T)
-    #, weights=np.cos(x/180*np.pi)) # /np.mean(np.cos(x/180))
 
     # Timestepping loop
     for n in range(0, NMAX):
@@ -122,7 +104,7 @@ def run_1d_ebm(D = 0.44,
 
         # Calculate src for this loop.
         alb = albedo(T, jmx, x, noalbedoflag)
-        src = ((1 - alb) * S - A) / Cl
+        src = ((1 - alb) * S_l - A) / Cl
         # src=src(:)
 
         # Calculate new T.
@@ -147,7 +129,7 @@ def run_1d_ebm(D = 0.44,
 
     F = -2 * np.pi * a ** 2 * np.sqrt(1 - x ** 2) * Dmp * np.gradient(T, delx, edge_order=2)
 
-    plot_results(A, B, D, F, S, T, Tglob, Toffset, alb, divF, phi, scaleQ)
+    plot_results(A, B, D, F, S_l, T, Tglob, Toffset, alb, divF, phi, scaleS)
     # %%
     output_df = pd.DataFrame(index=phi)
     output_df.index.name = 'latitude'
@@ -160,7 +142,7 @@ def run_1d_ebm(D = 0.44,
     # %%
 
 
-def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleQ):
+def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleS):
     fig, axs = plt.subplots(3, 1, figsize=[8, 8], sharex='col')
     ax = axs[0]
     ax.plot(phi, T, '-',marker='.', linewidth=1.5)
@@ -171,7 +153,7 @@ def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleQ):
     ax.grid()
     ax = axs[1]
     ax.plot(phi, F * 1e-15, '-', linewidth=1.5)
-    ax.set_ylabel('Poleward Heat Flux [10$^{15}$ W]')
+    ax.set_ylabel('Northward Heat Flux [10$^{15}$ W]')
     ax.grid()
 
     ax = axs[2]
@@ -185,7 +167,7 @@ def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleQ):
 
     plt.legend()
     fig.suptitle(f'D = {Dmag}, '
-                 f' Q/Qo ={scaleQ},'
+                 f' Q/Qo ={scaleS},'
                  f'A = {A},'
                  f'B= {B}, '
                  f'Toffset = {Toffset}'
