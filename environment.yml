@@ -1,0 +1,40 @@
+name: earth-analytics-python
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.8
+  - pip
+  # Core scientific python
+  - numpy
+  - pyqt
+  - tqdm
+
+  # Plotting
+  - matplotlib
+  - seaborn
+
+  # Spatial packages
+  - geopy
+  - scipy
+  - netcdf4
+  - nc-time-axis
+# specific for this project
+  - xarray
+  - intake
+  - s3fs
+  - intake-esm
+  - gcsfs
+  - zarr
+  - cartopy
+
+
+  # Jupyter Environment
+  - jupyterlab
+  - notebook
+  - ipython
+  - jupyter_contrib_nbextensions
+  - nbclean
+  - nbresuse
+

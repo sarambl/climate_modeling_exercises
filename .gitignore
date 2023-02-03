@@ -1,4 +1,8 @@
 /archive/
 /.idea/*
 ~$*
-
+*.nc
+/Data/CMIP.NCAR.CESM2-WACCM.historical.Amon.gn.nc
+/Data/CMIP.NCC.NorESM2-LM.historical.Amon.gn.nc
+/Data/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc
+*checkpoint.ipynb
