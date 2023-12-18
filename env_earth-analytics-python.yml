@@ -4,20 +4,24 @@ channels:
   - defaults
 
 dependencies:
-  - python=3.8
+  - python
   - pip
   # Core scientific python
   - numpy
   - pyqt
   - tqdm
 
+  # statistics 
+  - scikit-learn
+  - scipy
+  - pandas
+
   # Plotting
   - matplotlib
   - seaborn
 
   # Spatial packages
-  - geopy
-  - scipy
+#  - geopy
   - netcdf4
   - nc-time-axis
 # specific for this project
@@ -34,7 +38,7 @@ dependencies:
   - jupyterlab
   - notebook
   - ipython
-  - jupyter_contrib_nbextensions
-  - nbclean
-  - nbresuse
+  #- jupyter_contrib_nbextensions
+  #- nbclean
+  #- nbresuse
 
