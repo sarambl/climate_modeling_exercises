@@ -1,10 +1,9 @@
 name: earth-analytics-python
 channels:
   - conda-forge
-  - defaults
 
 dependencies:
-  - python
+  - python=3.8
   - pip
   # Core scientific python
   - numpy
@@ -24,6 +23,7 @@ dependencies:
 #  - geopy
   - netcdf4
   - nc-time-axis
+
 # specific for this project
   - xarray
   - intake
