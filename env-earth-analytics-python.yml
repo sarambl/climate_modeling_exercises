@@ -1,40 +1,21 @@
-name: earth-analytics-python_low_lev
+name: earth-analytics-python
 channels:
   - conda-forge
-
+  - defaults
 dependencies:
-  - python
-  - pip
   # Core scientific python
   - numpy
-  - pyqt
-  - tqdm
-
-  # statistics 
-  - scikit-learn
   - scipy
   - pandas
-
   # Plotting
   - matplotlib
-  - seaborn
-
+  #- seaborn
   # Spatial packages
-#  - geopy
   - netcdf4
   - nc-time-axis
-
 # specific for this project
   - xarray
   - cartopy
-
-
   # Jupyter Environment
   - jupyterlab
   - jupyter
-  - notebook
-  - ipython
-  #- jupyter_contrib_nbextensions
-  #- nbclean
-  #- nbresuse
-
