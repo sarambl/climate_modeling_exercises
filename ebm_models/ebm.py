@@ -157,12 +157,12 @@ def plot_results(A, B, Dmag, F, S, T, Tglob, Toffset, alb, divF, phi, scaleS):
     ax.grid()
 
     ax = axs[2]
-    ax.plot(phi, divF, '-', label=r'$\Delta$ F', linewidth=1.5)
-    ax.plot(phi, (1 - alb) * S, '--', label='SWd', linewidth=1.5)
-    ax.plot(phi, A + B * T, '-.', label='LWu', linewidth=1.5)
+    ax.plot(phi, divF, '-', label=r'$\Delta$ F: Transport heating rate', linewidth=1.5)
+    ax.plot(phi, (1 - alb) * S, '--', label='Short wave down', linewidth=1.5)
+    ax.plot(phi, A + B * T, '-.', label='Long wave up', linewidth=1.5)
     #            pphi,A+B*T,'.','linewidth',1.5)
     ax.set_ylabel('Energy Balance Terms [W $^{-2}$]')
-    ax.set_xlabel('latitude')
+    ax.set_xlabel('Latitude [$^\circ$N]')
     ax.grid()
 
     plt.legend()
