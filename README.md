@@ -2,13 +2,21 @@
 
 This is an exercise set used and developed at Stockholm University based on using two fairly simple Energy Balance Models plus analysing CMIP6 models. 
 
-Please download this folder and follow the numbering:
+Please download this folder and follow the numbering.
+
 - You should already have python installed with the correct packages. If not, you can check the notebook [x_python_instructions.ipynb](x_python_instructions.ipynb).
 - Read the  the introduction to the exercise set in [01_Introduction_EBM-lab.pdf](01_Introduction_EBM-lab.pdf).
 - You will then find the exercises in the notebooks [02_Exercises1_and_2_EBM_model.ipynb](02_Exercises1_and_2_EBM_model.ipynb) and [03_Exercises_ESM_modelling.ipynb](03_Exercises_ESM_modelling.ipynb).
 
-Download like this: 
+## Download like this: 
 ![image](https://github.com/sarambl/climate_modeling_exercises/assets/17406708/4a0f69d7-6951-4557-8ca0-1ccfc9a47ed4)
+
+
+## Hand in format:
+- Please hand in the exercise in 1 or 2 documents.
+- You may use the notebooks in this repository and add your answers for each question, including the code.
+- Possible formats: pdf, html, ipynb, word
+
 
 Good luck! 
 
